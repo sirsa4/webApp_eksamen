@@ -1,9 +1,9 @@
 import type { NextRequest } from "next/server"
 import { NextResponse } from "next/server"
 
-import { type Task } from "@/types"
+import { type TaskType } from "@/types"
 
-const tasks: Task[] = [
+const tasks: TaskType[] = [
   {
     id: "124",
     text: "Skriv resultatet av regneoperasjonen",
@@ -13,7 +13,7 @@ const tasks: Task[] = [
 ]
 
 // TODO: Denne skal brukes til å "samle" svarene (om du ikke bruker database)
-const answers = new Map<Task["id"], { attempts: number }>()
+const answers = new Map<TaskType["id"], { attempts: number }>()
 
 export function PUT(request: NextRequest) {
   const count = request.nextUrl.searchParams.get("count")

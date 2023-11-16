@@ -1,4 +1,4 @@
-export type Task = {
+export type TaskType = {
   id: string
   text: string
   type: "add" | "divide" | "multiply" | "subtract"

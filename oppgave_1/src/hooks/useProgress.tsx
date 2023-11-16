@@ -1,8 +1,8 @@
 import { useState } from "react"
 
-import { type Task } from "@/types"
+import { type TaskType } from "@/types"
 
-export default function useProgress({ tasks }: { tasks: Task[] }) {
+export default function useProgress({ tasks }: { tasks: TaskType[] }) {
   const [count, setCount] = useState(0)
   const current = tasks[0]
 
