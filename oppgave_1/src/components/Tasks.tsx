@@ -1,9 +1,9 @@
 import { type ReactNode } from "react"
 
-import { type Task } from "@/types"
+import { type TaskType } from "@/types"
 
 export default function Tasks({ children }: { children: ReactNode }) {
-  const tasks: Task[] = [
+  const tasks: TaskType[] = [
     {
       id: "123",
       text: "Skriv resultatet av regneoperasjonen",

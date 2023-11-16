@@ -1,16 +1,44 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
-import { type Task } from "@/types"
+import { type TaskType } from "@/types"
 
-export default function useProgress({ tasks }: { tasks: Task[] }) {
+export function useProgress() {
+  const [tasks, setTasks] = useState([])
   const [count, setCount] = useState(0)
-  const current = tasks[0]
+  const current = tasks[count] as TaskType
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch("http://localhost:3000/api/restapi", {
+          method: "get",
+        })
+        const result = (await response.json()) as TaskType[]
+        setTasks(result.data)
+        console.log(result)
+      } catch (error) {
+        console.error("Error fetching tasks:", error)
+      }
+    }
+
+    fetchData()
+  }, [])
 
   const next = () => {
-    setCount((prevCount) => prevCount + 1)
+    console.log("next: useProgress")
+    if (count < tasks.length - 1) {
+      setCount((prevCount) => prevCount + 1)
+    } else {
+      setCount(0)
+    }
   }
   const prev = () => {
-    setCount(count - 1)
+    console.log("prev: useProgress")
+    if (count > 0) {
+      setCount((prevCount) => prevCount - 1)
+    } else {
+      setCount(tasks.length - 1)
+    }
   }
 
   return { count, current, next, prev }
