@@ -11,7 +11,8 @@ model Task {
   id      String   @id @default(uuid())
   text    String
   type    String
-  data    String
+  num1    Float
+  num2    Float
   answers Answer[]
 }
 

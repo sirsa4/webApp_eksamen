@@ -1,6 +1,7 @@
 import type { NextRequest } from "next/server"
 import { NextResponse } from "next/server"
 
+import { prisma } from "@/lib/prisma"
 import { type TaskType } from "@/types"
 
 const tasks: TaskType[] = [
@@ -8,7 +9,8 @@ const tasks: TaskType[] = [
     id: "124",
     text: "Skriv resultatet av regneoperasjonen",
     type: "add",
-    data: "9|4",
+    num1: 9,
+    num2: 4,
   },
 ]
 
@@ -22,9 +24,10 @@ export function PUT(request: NextRequest) {
   return NextResponse.json({ success: true, data: tasks }, { status: 207 })
 }
 
-export function GET(request: NextRequest) {
+export async function GET(request: NextRequest) {
+  const allTasks = await prisma.task.findMany()
   const count = -1
   if (!count)
     return NextResponse.json({ success: false, error: "Invalid count" })
-  return NextResponse.json({ success: true, data: tasks }, { status: 200 })
+  return NextResponse.json({ success: true, data: allTasks }, { status: 200 })
 }
