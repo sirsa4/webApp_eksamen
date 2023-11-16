@@ -3,7 +3,7 @@ import { useEffect, useState } from "react"
 import { type TaskType } from "@/types"
 
 export function useProgress() {
-  const [tasks, setTasks] = useState([])
+  const [tasks, setTasks] = useState<TaskType[]>([])
   const [count, setCount] = useState(0)
   const current = tasks[count] as TaskType
 
@@ -15,7 +15,7 @@ export function useProgress() {
         })
         const result = (await response.json()) as TaskType[]
         setTasks(result.data)
-        console.log(result)
+        //   console.log(result)
       } catch (error) {
         console.error("Error fetching tasks:", error)
       }
