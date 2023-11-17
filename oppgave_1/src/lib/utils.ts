@@ -3,6 +3,7 @@ import { faker } from "@faker-js/faker"
 import { clsx } from "clsx"
 import { twMerge } from "tailwind-merge"
 
+import { TaskType } from "@/types"
 import { prisma } from "./prisma"
 
 export function cn(...inputs: ClassValue[]) {
@@ -43,4 +44,20 @@ export async function generateTasks(length: number) {
       },
     })
   })
+}
+
+//function to calculate 2 numbers
+export const calculate = (current: TaskType) => {
+  switch (current?.type) {
+    case "add":
+      return current.num1 + current.num2
+    case "subtract":
+      return current.num1 - current.num2
+    case "multiply":
+      return current.num1 * current.num2
+    case "divide":
+      return current.num1 / current.num2
+    default:
+      return "nothing"
+  }
 }

@@ -8,7 +8,7 @@ async function main() {
   await prisma.task.deleteMany()
   await prisma.answer.deleteMany()
 
-  Array.from({ length: 10 }).map(async (_, i) => {
+  Array.from({ length: 3 }).map(async (_, i) => {
     await prisma.task.create({
       data: {
         text: faker.company.name(),
