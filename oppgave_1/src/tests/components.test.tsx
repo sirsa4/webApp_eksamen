@@ -14,7 +14,7 @@ import Progress from "@/components/Progress"
 import Tasks from "@/components/Tasks"
 import TaskText from "@/components/Text"
 import useProgress from "@/hooks/useProgress"
-import { Task } from "@/types"
+import { TaskType } from "@/types"
 
 describe("Button Component", () => {
   it("renders a button with children", () => {
@@ -33,7 +33,7 @@ describe("Button Component", () => {
 })
 
 describe("Progress Component", () => {
-  const tasks: Task[] = [
+  const tasks: TaskType[] = [
     {
       id: "123",
       text: "Skriv resultatet av regneoperasjonen",
