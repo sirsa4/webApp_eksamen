@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "build": "next build",
-    "__predev": "prisma generate && prisma db push && npm run seed",
+    "predev": "prisma generate && prisma db push && npm run seed",
     "db:generate": "prisma generate",
     "dev": "next dev",
     "e2e": "playwright test",
@@ -13,7 +13,7 @@
     "e2e:report": "playwright show-report",
     "e2e:ui": "playwright test --ui",
     "lint": "eslint . --max-warnings 0",
-    "lint:fix": "pnpm run lint --fix",
+    "lint:fix": "npm run lint --fix",
     "seed": "tsx ./prisma/seed.ts",
     "start": "next start",
     "test": "vitest run",
@@ -21,7 +21,7 @@
     "test:ui": "vitest --ui",
     "test:watch": "vitest",
     "typecheck": "tsc --noEmit",
-    "__postinstall": "prisma generate"
+    "postinstall": "prisma generate"
   },
   "dependencies": {
     "@formkit/auto-animate": "^0.8.0",

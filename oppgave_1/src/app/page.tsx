@@ -1,27 +1,26 @@
+"use client"
+
 import Answer from "@/components/Answer"
 import Header from "@/components/Header"
 import Progress from "@/components/Progress"
 import Task from "@/components/Task"
 import Tasks from "@/components/Tasks"
 import TaskText from "@/components/Text"
+import { useProgress } from "@/hooks/useProgress"
 import { TaskType } from "@/types"
 
-export default async function Home() {
-  const response = await fetch("http://localhost:3000/api/restapi", {
-    method: "get",
-  })
-  const result = await response.json() as TaskType
-
+export default function Home() {
+  const { current, next, prev } = useProgress()
   return (
     <main className="flex flex-col items-center">
-      {JSON.stringify(result)}
+      {JSON.stringify(current)}
       <Header />
-      <Tasks >
-        <Answer />
+      <Tasks current={current}>
+        <Answer current={current} />
       </Tasks>
       <Task />
-      <TaskText text ={"Hva blir resultatet av regneoperasjonen?"} />
-      <Progress tasks ={result}/>
+      <TaskText text={"Hva blir resultatet av regneoperasjonen?"} />
+      <Progress current={current} next={next} prev={prev} />
     </main>
   )
 }
