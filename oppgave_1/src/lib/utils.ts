@@ -56,6 +56,9 @@ export const calculate = (current: TaskType) => {
     case "multiply":
       return current.num1 * current.num2
     case "divide":
+      if(current.num2 === 0){
+        return current.num2 + 1
+      }
       return current.num1 / current.num2
     default:
       return "nothing"

@@ -4,6 +4,7 @@ import { type ReactNode } from "react"
 
 import { type TaskType } from "@/types"
 
+
 export default function Tasks({
   children,
   current,
@@ -47,4 +48,4 @@ export default function Tasks({
       {children}
     </section>
   )
-}
+  }

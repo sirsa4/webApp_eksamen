@@ -7,7 +7,7 @@ import { calculate } from "@/lib/utils"
 import { TaskType } from "@/types"
 
 export default function Answer({ current }: { current: TaskType }) {
-  const [answer, setAnswer] = useState(1.8)
+  const [answer, setAnswer] = useState(1)
 
   const send = (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault()

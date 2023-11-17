@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 
 import { type TaskType } from "@/types"
 
+
 export function useProgress() {
   const [tasks, setTasks] = useState<TaskType[]>([])
   const [count, setCount] = useState(0)
