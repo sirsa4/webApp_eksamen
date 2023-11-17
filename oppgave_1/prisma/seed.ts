@@ -1,6 +1,7 @@
 import { faker } from "@faker-js/faker"
 
 import { prisma } from "@/lib/prisma"
+import { getRandomType, mathTypes } from "@/lib/utils"
 
 //create data with faker: https://www.youtube.com/watch?v=oPKS0FmCHA4
 async function main() {
@@ -11,7 +12,7 @@ async function main() {
     await prisma.task.create({
       data: {
         text: faker.company.name(),
-        type: faker.commerce.productName(),
+        type: getRandomType(mathTypes),
         //random made from strings: https://fakerjs.dev/api/random.html
         num1: parseInt(faker.string.numeric()),
         num2: parseInt(faker.string.numeric()),
