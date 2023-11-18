@@ -10,13 +10,13 @@ import { useProgress } from "@/hooks/useProgress"
 import { TaskType } from "@/types"
 
 export default function Home() {
-  const { current, next, prev } = useProgress()
+  const { current, data, next, prev } = useProgress()
   return (
     <main className="flex flex-col items-center">
       {JSON.stringify(current)}
       <Header />
-      <Tasks current={current}>
-        <Answer current={current} />
+      <Tasks current={current} data={data}>
+        <Answer current={current} data={data} />
       </Tasks>
       <Task />
       <TaskText text={"Hva blir resultatet av regneoperasjonen?"} />

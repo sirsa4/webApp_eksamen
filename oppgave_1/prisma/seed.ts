@@ -14,8 +14,7 @@ async function main() {
         text: faker.company.name(),
         type: getRandomType(mathTypes),
         //random made from strings: https://fakerjs.dev/api/random.html
-        num1: parseInt(faker.string.numeric()),
-        num2: parseInt(faker.string.numeric()),
+        data: `${faker.string.numeric()} | ${faker.string.numeric()}`,
       },
     })
   })
