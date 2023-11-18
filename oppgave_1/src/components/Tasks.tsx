@@ -4,35 +4,33 @@ import { type ReactNode } from "react"
 
 import { type TaskType } from "@/types"
 
-
 export default function Tasks({
   children,
   current,
+  data,
 }: {
   children: ReactNode
   current: TaskType
+  data: string[]
 }) {
   const tasks: TaskType[] = [
     {
       id: "123",
       text: "Skriv resultatet av regneoperasjonen",
-      num1: 9,
-      num2: 2,
       type: "add",
+      data: "num1 | num2",
     },
     {
       id: "234",
       text: "Skriv resultatet av regneoperasjonen",
-      num1: 9,
-      num2: 2,
       type: "add",
+      data: "num1 | num2",
     },
     {
       id: "356",
       text: "Skriv resultatet av regneoperasjonen",
-      num1: 9,
-      num2: 2,
       type: "multiply",
+      data: "num1 | num2",
     },
   ]
 
@@ -42,10 +40,11 @@ export default function Tasks({
         <p>{current?.type}</p>
         <h3>{current?.text}</h3>
         <p>
-          {current?.num1} | {current?.num2}
+          {current ? parseInt(data[0]) : null} |{" "}
+          {current ? parseInt(data[1]) : null}
         </p>
       </article>
       {children}
     </section>
   )
-  }
+}

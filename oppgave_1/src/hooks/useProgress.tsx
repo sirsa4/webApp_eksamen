@@ -2,12 +2,12 @@ import { useEffect, useState } from "react"
 
 import { type TaskType } from "@/types"
 
-
 export function useProgress() {
   const [tasks, setTasks] = useState<TaskType[]>([])
   const [count, setCount] = useState(0)
   const current = tasks[count] as TaskType
-
+  const data = current?.data.split("|")
+  // console.log(data)
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -42,5 +42,5 @@ export function useProgress() {
     }
   }
 
-  return { count, current, next, prev }
+  return { count, current, data, next, prev }
 }

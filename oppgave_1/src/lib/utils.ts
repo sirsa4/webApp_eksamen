@@ -39,27 +39,25 @@ export async function generateTasks(length: number) {
         text: faker.company.name(),
         type: getRandomType(mathTypes),
         //random made from strings: https://fakerjs.dev/api/random.html
-        num1: parseInt(faker.string.numeric()),
-        num2: parseInt(faker.string.numeric()),
+        data: `${faker.string.numeric()} | ${faker.string.numeric()}`,
       },
     })
   })
 }
 
 //function to calculate 2 numbers
-export const calculate = (current: TaskType) => {
+export const calculate = (current: TaskType, data: string[]) => {
   switch (current?.type) {
     case "add":
-      return current.num1 + current.num2
+      return parseInt(data[0]) + parseInt(data[1])
     case "subtract":
-      return current.num1 - current.num2
+      return parseInt(data[0]) - parseInt(data[1])
     case "multiply":
-      return current.num1 * current.num2
+      // console.log(`${current.data[0]} | ${current.data[1]}`)
+      //console.log(data)
+      return parseInt(data[0]) * parseInt(data[1])
     case "divide":
-      if(current.num2 === 0){
-        return current.num2 + 1
-      }
-      return current.num1 / current.num2
+      return parseInt(data[0]) / parseInt(data[1])
     default:
       return "nothing"
   }
