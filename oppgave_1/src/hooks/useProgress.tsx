@@ -6,6 +6,7 @@ export function useProgress() {
   const [tasks, setTasks] = useState<TaskType[]>([])
   const [count, setCount] = useState(0)
   const current = tasks[count] as TaskType
+  const [lastTask, setLastTask] = useState(false)
   const data = current?.data.split("|")
   // console.log(data)
   useEffect(() => {
@@ -17,13 +18,20 @@ export function useProgress() {
         const result = (await response.json()) as TaskType[]
         setTasks(result.data)
         //   console.log(result)
+        if (count === tasks.length - 1) {
+          console.log(lastTask)
+          setLastTask(true)
+        } else {
+          setLastTask(false)
+        }
+        console.log(lastTask)
       } catch (error) {
         console.error("Error fetching tasks:", error)
       }
     }
 
     fetchData()
-  }, [])
+  }, [count])
 
   const next = () => {
     console.log("next: useProgress")
@@ -42,5 +50,5 @@ export function useProgress() {
     }
   }
 
-  return { count, current, data, next, prev }
+  return { count, current, lastTask, data, next, prev }
 }
