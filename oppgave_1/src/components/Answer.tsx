@@ -2,9 +2,10 @@
 
 import { useState } from "react"
 import type { FormEvent, MouseEvent } from "react"
+import { useRouter } from "next/navigation"
 
 import { calculate } from "@/lib/utils"
-import { TaskType } from "@/types"
+import { AnswerType, TaskType } from "@/types"
 
 export default function Answer({
   current,
@@ -20,23 +21,41 @@ export default function Answer({
   setAnswer: any
 }) {
   // const [answer, setAnswer] = useState(0)
-  const [attempts, setAttempts] = useState(3)
+  const route = useRouter()
+  const [attempts, setAttempts] = useState(0)
+  const [answers, setAnswers] = useState<AnswerType[]>([])
 
+  //function which sends answers attached to tasks to the database
   const send = async (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault()
     //console.log(answer)
-    const updatedTask = await fetch(`/api/restapi/${current.id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        id: current.id,
-        answer,
-        attempts,
-      }),
+
+    //add answers to all tasks
+    // store answers array to an array of tasks for updating
+    //This returns objects that can be send as patch request with fetch api
+    //id of each task is included to update correct task
+
+    const tasksToUpdate = answers.map((answer) => {
+      return {
+        id: answer.id,
+        answers: [
+          {
+            attempts: answer.answers[0].attempts,
+          },
+        ],
+      }
     })
+    //patch request which sends the answers array to api route: /api/restapi
+    //route.ts in that path will handle this request
     try {
+      const updatedTasks = await fetch(`/api/restapi`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(tasksToUpdate),
+      })
+      route.push("/result")
     } catch (error) {
       console.error(error)
     }
@@ -49,8 +68,25 @@ export default function Answer({
     if (calculate(current, data) !== answer) {
       //decrememnt number attempts by 1 each time wrong answer is given by users
       //this is buggy since each keystroke is counted as an attemp. Example if correct answer is 12, that would atleast 1 attemp when user types numkey 1, then numkey 2 will also be another attempt.
-      setAttempts((prev) => prev - 1)
+      // Check for duplicates before adding a new answer
+      //Got this function to try stop duplicates from GPT
+      const isDuplicate = answers.some(
+        (a) => a.id === current.id && a.answers[0].attempts === attempts,
+      )
+
+      //if to avoid avoid duplices
+      if (!isDuplicate) {
+        setAttempts((prev) => prev + 1)
+        if (attempts >= 3) {
+          setAttempts(0)
+        }
+        setAnswers((prev: any) => [
+          ...prev,
+          { id: current.id, answers: [{ attempts: attempts }] },
+        ])
+      }
       console.log("Attemps: " + attempts)
+      console.log(answers)
       if (attempts === 0) {
         return <div>You lost</div>
       }

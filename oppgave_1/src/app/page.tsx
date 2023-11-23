@@ -9,7 +9,6 @@ import Task from "@/components/Task"
 import Tasks from "@/components/Tasks"
 import TaskText from "@/components/Text"
 import { useProgress } from "@/hooks/useProgress"
-import { TaskType } from "@/types"
 
 export default function Home() {
   const { current, data, next, prev, lastTask } = useProgress()
