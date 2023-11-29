@@ -8,6 +8,21 @@ import Progress from "@/components/Progress"
 import Task from "@/components/Task"
 import Tasks from "@/components/Tasks"
 import TaskText from "@/components/Text"
+<<<<<<< HEAD
+import { TaskType } from "@/types"
+//import { Task } from "vitest"
+
+export default async function Home() {
+  const response = await fetch("http://localhost:3000/api/restapi", {
+    method: "get",
+  })
+  const result = await response.json () as TaskType []
+  // console.log(result)
+
+  return (
+    <main className="flex flex-col items-center">
+      {JSON.stringify(result)}
+=======
 import { useProgress } from "@/hooks/useProgress"
 
 export default function Home() {
@@ -16,6 +31,7 @@ export default function Home() {
   return (
     <main className="flex flex-col items-center">
       {JSON.stringify(current)}
+>>>>>>> main
       <Header />
       <Tasks current={current} data={data}>
         <Answer
@@ -28,6 +44,9 @@ export default function Home() {
       </Tasks>
       <Task />
       <TaskText text={"Hva blir resultatet av regneoperasjonen?"} />
+<<<<<<< HEAD
+      <Progress tasks={result}/>
+=======
       <Progress
         current={current}
         data={data}
@@ -35,6 +54,7 @@ export default function Home() {
         prev={prev}
         answer={answer}
       />
+>>>>>>> main
     </main>
   )
 }

@@ -2,8 +2,12 @@ import { useEffect, useState } from "react"
 
 import { type TaskType } from "@/types"
 
+<<<<<<< HEAD
+export default function useProgress({ tasks }: { tasks: TaskType[] }) {
+=======
 export function useProgress() {
   const [tasks, setTasks] = useState<TaskType[]>([])
+>>>>>>> main
   const [count, setCount] = useState(0)
   const current = tasks[count] as TaskType
   const [lastTask, setLastTask] = useState(false)

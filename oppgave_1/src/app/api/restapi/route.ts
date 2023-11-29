@@ -1,9 +1,14 @@
 import type { NextRequest } from "next/server"
 import { NextResponse } from "next/server"
 
+<<<<<<< HEAD
+import { type TaskType } from "@/types"
+import { prisma } from "@/lib/prisma"
+=======
 import { prisma } from "@/lib/prisma"
 import { generateTasks } from "@/lib/utils"
 import { type TaskType } from "@/types"
+>>>>>>> main
 
 const tasks: TaskType[] = [
   {
@@ -34,6 +39,10 @@ export async function GET(request: NextRequest) {
   const count = -1
   if (!count)
     return NextResponse.json({ success: false, error: "Invalid count" })
+<<<<<<< HEAD
+    const allTasks = await prisma.task.findMany()
+  return NextResponse.json({ success: true, data: tasks }, { status: 200 })
+=======
   try {
     const allTasks = await prisma.task.findMany({ include: { answers: true } })
     return NextResponse.json({ success: true, data: allTasks }, { status: 200 })
@@ -113,4 +122,5 @@ export async function PATCH(request: NextRequest) {
       { status: 500 },
     )
   }
+>>>>>>> main
 }
