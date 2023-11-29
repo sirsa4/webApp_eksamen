@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "build": "next build",
-    "predev": "prisma generate && prisma db push && pnpm run seed",
+    "predev": "prisma generate && prisma db push && npm run seed",
     "db:generate": "prisma generate",
     "dev": "next dev",
     "e2e": "playwright test",
@@ -45,7 +45,9 @@
     "server-only": "^0.0.1",
     "unstyled-table": "0.0.3-alpha-3",
     "usehooks-ts": "^2.9.1",
-    "zod": "^3.22.4"
+    "uuid": "^9.0.1",
+    "zod": "^3.22.4",
+    "proxy": "https://webapp-api.vercel.app"
   },
   "devDependencies": {
     "@faker-js/faker": "^8.2.0",
@@ -67,6 +69,7 @@
     "@types/react-color": "^3.0.9",
     "@types/react-dom": "^18.2.14",
     "@types/testing-library__jest-dom": "^6.0.0",
+    "@types/uuid": "^9.0.7",
     "@typescript-eslint/eslint-plugin": "^6.8.0",
     "@typescript-eslint/parser": "^6.8.0",
     "@vitejs/plugin-react": "^4.1.0",

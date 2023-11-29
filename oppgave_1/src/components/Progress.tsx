@@ -3,9 +3,9 @@
 import { useState } from "react"
 import type { MouseEvent } from "react"
 
-import { type Task } from "@/types"
+import { type TaskType } from "@/types"
 
-export default function Progress(props: { tasks: Task[] }) {
+export default function Progress(props: { tasks: TaskType[] }) {
   const [state, setState] = useState(0)
   const currentTask = props.tasks[state]
 
@@ -21,7 +21,7 @@ export default function Progress(props: { tasks: Task[] }) {
 
   return (
     <footer className="mt-4 border-t-slate-300">
-      <p>{currentTask.id}</p>
+      <p>id:{currentTask?.id}</p>
       <button onClick={next} className="bg-purple-700 text-white">
         Forrige
       </button>

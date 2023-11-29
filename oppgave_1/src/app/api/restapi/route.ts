@@ -1,9 +1,10 @@
 import type { NextRequest } from "next/server"
 import { NextResponse } from "next/server"
 
-import { type Task } from "@/types"
+import { type TaskType } from "@/types"
+import { prisma } from "@/lib/prisma"
 
-const tasks: Task[] = [
+const tasks: TaskType[] = [
   {
     id: "124",
     text: "Skriv resultatet av regneoperasjonen",
@@ -13,7 +14,7 @@ const tasks: Task[] = [
 ]
 
 // TODO: Denne skal brukes til å "samle" svarene (om du ikke bruker database)
-const answers = new Map<Task["id"], { attempts: number }>()
+const answers = new Map<TaskType["id"], { attempts: number }>()
 
 export function PUT(request: NextRequest) {
   const count = request.nextUrl.searchParams.get("count")
@@ -22,9 +23,10 @@ export function PUT(request: NextRequest) {
   return NextResponse.json({ success: true, data: tasks }, { status: 207 })
 }
 
-export function GET(request: NextRequest) {
+export async function GET(request: NextRequest) {
   const count = -1
   if (!count)
     return NextResponse.json({ success: false, error: "Invalid count" })
+    const allTasks = await prisma.task.findMany()
   return NextResponse.json({ success: true, data: tasks }, { status: 200 })
 }
