@@ -10,7 +10,6 @@ const CreateUser = () => {
     gender: "",
     sport: "",
   })
- 
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target
@@ -44,7 +43,7 @@ const CreateUser = () => {
         className="mb-4 rounded bg-white px-8 pb-8 pt-6 shadow-md"
       >
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" >
+          <label className="mb-2 block text-sm font-bold text-gray-700">
             ID:
             <input
               type="text"
@@ -54,7 +53,7 @@ const CreateUser = () => {
             />
           </label>
           <br />
-          <label className="block text-gray-700 text-sm font-bold mb-2">
+          <label className="mb-2 block text-sm font-bold text-gray-700">
             Gender:
             <input
               type="text"
@@ -64,7 +63,7 @@ const CreateUser = () => {
             />
           </label>
           <br />
-          <label className="block text-gray-700 text-sm font-bold mb-2">
+          <label className="mb-2 block text-sm font-bold text-gray-700">
             Select a sport:
             <select value={newUser.sport} onChange={handleSportChange}>
               {sportsOptions.map((sport, index) => (
@@ -77,9 +76,12 @@ const CreateUser = () => {
         </div>
         <br />
         <div className="flex items-center justify-between">
-        <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" >
-          Create User
-        </button>
+          <button
+            type="submit"
+            className="focus:shadow-outline rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700 focus:outline-none"
+          >
+            Create User
+          </button>
         </div>
       </form>
     </div>
