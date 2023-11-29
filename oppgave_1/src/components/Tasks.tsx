@@ -35,16 +35,18 @@ export default function Tasks({
   ]
 
   return (
-    <section>
-      <article key={current?.id}>
-        <p>{current?.type}</p>
-        <h3>{current?.text}</h3>
-        <p>
-          {current ? parseInt(data[0]) : null} |{" "}
-          {current ? parseInt(data[1]) : null}
-        </p>
-      </article>
-      {children}
-    </section>
+    <>
+      <section>
+        <article key={current?.id}>
+          <p>{current?.type}</p>
+          <h3>{current?.text}</h3>
+          <p>
+            {current ? parseInt(data[0]) : null} |{" "}
+            {current ? parseInt(data[1]) : null}
+          </p>
+        </article>
+        {children}
+      </section>
+    </>
   )
 }
