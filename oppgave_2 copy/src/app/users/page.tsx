@@ -1,10 +1,9 @@
 //import CreateUser from "@/components/CreateUser";
 
+import { PrismaClient } from "@prisma/client"
 
 import CreateUser from "@/components/CreateUser"
 import { Data, User } from "@/types/User"
-import { PrismaClient } from "@prisma/client"
-
 
 const prisma = new PrismaClient()
 
@@ -14,7 +13,7 @@ async function fetchUserData(): Promise<User[]> {
     if (!response.ok) {
       throw new Error("Failed to fetch data")
     }
-    const data: User[] = await response.json()
+    const data = (await response.json()) as User[]
     return data
   } catch (error) {
     console.error("Fetching error", error)
@@ -22,23 +21,21 @@ async function fetchUserData(): Promise<User[]> {
   }
 }
 
- export default async function Page() {
-  const userData = await fetchUserData();
-  
+export default async function Page() {
+  const userData = await fetchUserData()
+  console.log(userData)
   return (
     <div>
       <div className="flex flex-col items-center">
-      <CreateUser/>
+        <CreateUser />
       </div>
       <h1>User Data</h1>
       <ul className="px-6">
-        {userData.data.map((user, index) => (
-          <li key={index} className="border-solid border-2 border-red-500">
+        {userData.data.map((user: User, index: number) => (
+          <li key={index} className="border-2 border-solid border-red-500">
             <h2>User ID: {user.id}</h2>
             <p>Gender: {user.gender}</p>
             <p>Sport: {user.sport}</p>
-            
-           
           </li>
         ))}
       </ul>
@@ -58,11 +55,8 @@ async function fetchUserData(): Promise<User[]> {
   )
 }
 
-
-
-  
-
-{/* <div>
+{
+  /* <div>
       <h1>User Data</h1>
       <ul>
         {userData.data.map((user:User , index) => {
@@ -74,4 +68,5 @@ async function fetchUserData(): Promise<User[]> {
           )
         })}
       </ul>
-    </div> */}
+    </div> */
+}

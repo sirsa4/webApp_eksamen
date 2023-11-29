@@ -24,24 +24,25 @@
 // }
 
 export type Data = {
-    pages: number,
-    success: boolean,
-    hasMore: boolean,
-    page: number,
-    data: User[]
+  pages: number
+  success: boolean
+  hasMore: boolean
+  page: number
+  data: User[]
 }
 
 export type User = {
-    id: string,
-    userId: string,
-    gender: string,
-    sport: string,
-    data: User[]
-    meta: {
-        heartrate: number;
-        watt: number;
-        speed: number;
-    }
+  id: string
+  userId: string
+  gender: string
+  sport: string
+  meta?: Meta
+}
+
+export type Meta = {
+  heartrate: number
+  watt: number
+  speed: number
 }
 
 // export type User = {
@@ -57,23 +58,22 @@ export type User = {
 //     }
 // }
 export type Activity = {
-    date: string;
-    goalId?: string;
-    name?: string;
-    tags?: string[];
-    questions: Question[];
-    intervals: Interval[];
+  date: string
+  goalId?: string
+  name?: string
+  tags?: string[]
+  questions: Question[]
+  intervals: Interval[]
 }
 
 export type Question = {
-    id: string;
-    question: string;
-    type: string;
-} 
-
-export type Interval = {
-    id: string;
-    duration: number;
-    intensity: number;
+  id: string
+  question: string
+  type: string
 }
 
+export type Interval = {
+  id: string
+  duration: number
+  intensity: number
+}
