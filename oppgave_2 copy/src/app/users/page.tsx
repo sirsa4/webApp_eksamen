@@ -9,7 +9,7 @@ const prisma = new PrismaClient()
 
 async function fetchUserData(): Promise<User[]> {
   try {
-    const response = await fetch("https://webapp-api.vercel.app/api/users")
+    const response = await fetch("http://localhost:3000/api")
     if (!response.ok) {
       throw new Error("Failed to fetch data")
     }
