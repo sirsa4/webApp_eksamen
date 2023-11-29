@@ -8,7 +8,7 @@ async function main() {
   try {
     const res = await fetch("https://webapp-api.vercel.app/api/users")
     const result = (await res.json()) as Data
-    console.log(result.data)
+    // console.log(result.data)
 
     result.data.map(async (user) => {
       await prisma.user.create({

@@ -10,6 +10,7 @@ const CreateUser = () => {
     gender: "",
     sport: "",
   })
+ 
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target
@@ -34,42 +35,52 @@ const CreateUser = () => {
     "weightlifting",
     "other",
   ]
+
   return (
-    <div>
+    <div className="w-full max-w-xs">
       <h1>Create New User</h1>
-      <form onSubmit={handleSubmit}>
-        <label>
-          ID:
-          <input
-            type="text"
-            name="id"
-            value={newUser.id}
-            onChange={handleInputChange}
-          />
-        </label>
+      <form
+        onSubmit={handleSubmit}
+        className="mb-4 rounded bg-white px-8 pb-8 pt-6 shadow-md"
+      >
+        <div className="mb-4">
+          <label className="block text-gray-700 text-sm font-bold mb-2" >
+            ID:
+            <input
+              type="text"
+              name="id"
+              value={newUser.id}
+              onChange={handleInputChange}
+            />
+          </label>
+          <br />
+          <label className="block text-gray-700 text-sm font-bold mb-2">
+            Gender:
+            <input
+              type="text"
+              name="gender"
+              value={newUser.gender}
+              onChange={handleInputChange}
+            />
+          </label>
+          <br />
+          <label className="block text-gray-700 text-sm font-bold mb-2">
+            Select a sport:
+            <select value={newUser.sport} onChange={handleSportChange}>
+              {sportsOptions.map((sport, index) => (
+                <option key={index} value={sport}>
+                  {sport}
+                </option>
+              ))}
+            </select>
+          </label>
+        </div>
         <br />
-        <label>
-          Gender:
-          <input
-            type="text"
-            name="gender"
-            value={newUser.gender}
-            onChange={handleInputChange}
-          />
-        </label>
-        <br />
-        <label>
-          Sport:
-          <select value={newUser.sport} onChange={handleSportChange}>
-            {sportsOptions.map((sport, index) => (
-              <option key={index} value={sport}>
-                {sport}
-              </option>
-            ))}
-          </select>
-        </label>
-        <br />
-        <button type="submit" className="border">Create User</button>
+        <div className="flex items-center justify-between">
+        <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" >
+          Create User
+        </button>
+        </div>
       </form>
     </div>
   )
