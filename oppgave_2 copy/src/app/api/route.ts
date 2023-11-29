@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
 
 import { prisma } from "@/lib/prisma"
+import { User } from "@/types/User"
 
 export async function GET() {
   try {
@@ -10,8 +11,16 @@ export async function GET() {
 }
 
 export async function POST(request: NextRequest) {
-  const body = await request.json()
+  const body = (await request.json()) as User
 
-  // console.log(data);
-  return NextResponse.json({ body })
+  // console.log(body);
+  const newUser = await prisma.user.create({
+    data: {
+      id: body.id,
+      userId: body.userId,
+      gender: body.gender,
+      sport: body.sport,
+    },
+  })
+  return NextResponse.json({ newUser, status: 200 })
 }
