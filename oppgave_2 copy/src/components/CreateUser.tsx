@@ -5,19 +5,21 @@ import React, { useEffect, useState } from "react"
 import { User } from "@/types/User"
 
 const CreateUser = () => {
-  const [userId, setUserId] = useState()
-  const [gender, setGender] = useState()
-  const [sport, setSport] = useState()
+  const [userId, setUserId] = useState("")
+  const [gender, setGender] = useState("")
+  const [sport, setSport] = useState("")
   const [newUser, setNewUser] = useState({
     userId: "",
     gender: "",
     sport: "",
   })
 
+  //blir ikke brukt
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target
     setNewUser({ ...newUser, [name]: value })
   }
+  //blir ikke brukt
   const handleSportChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const { value } = event.target
     setNewUser({ ...newUser, sport: value })
@@ -40,6 +42,11 @@ const CreateUser = () => {
    
   }
 
+  const genderOptions = [
+    "Male",
+    "Female",
+    "Other"
+  ]
   const sportsOptions = [
     "running",
     "cycling",
@@ -70,12 +77,13 @@ const CreateUser = () => {
           <br />
           <label className="mb-2 block text-sm font-bold text-gray-700">
             Gender:
-            <input
-              type="text"
-              name="gender"
-              value={gender}
-              onChange={(e) => setGender(e.target.value)}
-            />
+            <select value={gender} onChange={(e) => setGender(e.target.value)}>
+            {genderOptions.map((gender,index) => (
+              <option key={index} value={gender}>
+                {gender}
+              </option>
+            ))}
+          </select>
           </label>
           <br />
           <label className="mb-2 block text-sm font-bold text-gray-700">
