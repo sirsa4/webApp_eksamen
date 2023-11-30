@@ -4,6 +4,9 @@ import { type ReactNode } from "react"
 
 import { type TaskType } from "@/types"
 
+<<<<<<< HEAD
+export default function Tasks({ children }: { children: ReactNode }) {
+=======
 export default function Tasks({
   children,
   current,
@@ -13,6 +16,7 @@ export default function Tasks({
   current: TaskType
   data: string[]
 }) {
+>>>>>>> main
   const tasks: TaskType[] = [
     {
       id: "123",

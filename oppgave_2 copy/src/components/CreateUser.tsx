@@ -5,26 +5,48 @@ import React, { useEffect, useState } from "react"
 import { User } from "@/types/User"
 
 const CreateUser = () => {
+  const [userId, setUserId] = useState("")
+  const [gender, setGender] = useState("")
+  const [sport, setSport] = useState("")
   const [newUser, setNewUser] = useState({
-    id: "",
+    userId: "",
     gender: "",
     sport: "",
   })
 
+  //blir ikke brukt
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target
     setNewUser({ ...newUser, [name]: value })
   }
+  //blir ikke brukt
   const handleSportChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const { value } = event.target
     setNewUser({ ...newUser, sport: value })
   }
 
-  const handleSubmit = (event: React.FormEvent) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault()
-    console.log("New user:", newUser)
+    // console.log("New user:", newUser)
+    console.log({ userId, gender, sport })
+    if (userId && gender && sport) {
+      const newlyUser = { userId, gender, sport }
+      const postUser = await fetch("http://localhost:3000/api", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newlyUser),
+      })
+    }
+   
   }
 
+  const genderOptions = [
+    "Male",
+    "Female",
+    "Other"
+  ]
   const sportsOptions = [
     "running",
     "cycling",
@@ -48,24 +70,25 @@ const CreateUser = () => {
             <input
               type="text"
               name="id"
-              value={newUser.id}
-              onChange={handleInputChange}
+              value={userId}
+              onChange={(e) => setUserId(e.target.value)}
             />
           </label>
           <br />
           <label className="mb-2 block text-sm font-bold text-gray-700">
             Gender:
-            <input
-              type="text"
-              name="gender"
-              value={newUser.gender}
-              onChange={handleInputChange}
-            />
+            <select value={gender} onChange={(e) => setGender(e.target.value)}>
+            {genderOptions.map((gender,index) => (
+              <option key={index} value={gender}>
+                {gender}
+              </option>
+            ))}
+          </select>
           </label>
           <br />
           <label className="mb-2 block text-sm font-bold text-gray-700">
             Select a sport:
-            <select value={newUser.sport} onChange={handleSportChange}>
+            <select value={sport} onChange={(e) => setSport(e.target.value)}>
               {sportsOptions.map((sport, index) => (
                 <option key={index} value={sport}>
                   {sport}
