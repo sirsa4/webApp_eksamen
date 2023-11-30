@@ -1,6 +1,7 @@
 //import CreateUser from "@/components/CreateUser";
 
 import { PrismaClient } from "@prisma/client"
+import Link from "next/link"
 
 import CreateUser from "@/components/CreateUser"
 import { Data, User } from "@/types/User"
@@ -30,15 +31,18 @@ export default async function Page() {
         <CreateUser />
       </div>
       <h1>User Data</h1>
-      <ul className="px-6">
+      <section className="px-6">
         {userData.data.map((user: User, index: number) => (
-          <li key={index} className="border-2 border-solid border-red-500">
-            <h2>User ID: {user.id}</h2>
+          <article key={index} className="border-2 border-solid border-red-500">
+            <h2>User ID: {user.userId}</h2>
             <p>Gender: {user.gender}</p>
             <p>Sport: {user.sport}</p>
-          </li>
+            <div>
+              <Link href={`/users/${user.id}`}>Se bruker økter</Link>
+            </div>
+          </article>
         ))}
-      </ul>
+      </section>
 
       {/* <ul className="px-6">
         {userData.data.map((user, index) => (
