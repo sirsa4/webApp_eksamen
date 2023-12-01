@@ -58,8 +58,8 @@ const CreateUser = () => {
   ]
 
   return (
-    <div className="w-full max-w-xs">
-      <h1>Create New User</h1>
+    <div className="w-full max-w-xs ">
+      <h1 className="text-2xl font-bold mb-4 text-center drop- ">Create New User</h1>
       <form
         onSubmit={handleSubmit}
         className="mb-4 rounded bg-white px-8 pb-8 pt-6 shadow-md"
@@ -71,13 +71,13 @@ const CreateUser = () => {
               type="text"
               name="id"
               value={userId}
-              onChange={(e) => setUserId(e.target.value)}
+              onChange={(e) => setUserId(e.target.value)}className="drop-shadow-2xl"
             />
           </label>
           <br />
           <label className="mb-2 block text-sm font-bold text-gray-700">
             Gender:
-            <select value={gender} onChange={(e) => setGender(e.target.value)}>
+            <select value={gender} onChange={(e) => setGender(e.target.value)}className="w-full px-3 py-2 border rounded drop-shadow-2xl">
             {genderOptions.map((gender,index) => (
               <option key={index} value={gender}>
                 {gender}
@@ -88,7 +88,7 @@ const CreateUser = () => {
           <br />
           <label className="mb-2 block text-sm font-bold text-gray-700">
             Select a sport:
-            <select value={sport} onChange={(e) => setSport(e.target.value)}>
+            <select value={sport} onChange={(e) => setSport(e.target.value)}className="w-full px-3 py-2 border rounded drop-shadow-2xl">
               {sportsOptions.map((sport, index) => (
                 <option key={index} value={sport}>
                   {sport}
