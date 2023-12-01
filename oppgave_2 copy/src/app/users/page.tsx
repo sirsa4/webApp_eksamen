@@ -30,19 +30,29 @@ export default async function Page() {
       <div className="flex flex-col items-center">
         <CreateUser />
       </div>
-      <h1>User Data</h1>
-      <section className="px-6">
+      <div>
+      <h1 className="text-2xl font-bold mb-4 text-center ">User Data</h1>
+      <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 ">
         {userData.data.map((user: User, index: number) => (
-          <article key={index} className="border-2 border-solid border-red-500">
-            <h2>User ID: {user.userId}</h2>
-            <p>Gender: {user.gender}</p>
-            <p>Sport: {user.sport}</p>
+          <article
+            key={index}
+            className="border-2 border-solid border-gray-300 m-4 rounded p-4 shadow-md"
+          >
+            <h2 className="text-lg font-bold mb-2">User ID: {user.userId}</h2>
+            <p className="mb-2">Gender: {user.gender}</p>
+            <p className="mb-2">Sport: {user.sport}</p>
             <div>
-              <Link href={`/users/${user.id}`}>Se bruker økter</Link>
+              <Link
+                href={`/users/${user.id}`}
+                type="submit"
+                className="focus:shadow-outline rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700 focus:outline-none"
+              >Se bruker økter </Link>
+              
             </div>
           </article>
         ))}
       </section>
+      </div>
 
       {/* <ul className="px-6">
         {userData.data.map((user, index) => (
