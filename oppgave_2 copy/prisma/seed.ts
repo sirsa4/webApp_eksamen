@@ -1,5 +1,5 @@
 import { prisma } from "@/lib/prisma"
-import { Activity, Data } from "@/types/User"
+import { Activity, Data, Interval } from "@/types/User"
 
 async function main() {
   await prisma.user.deleteMany()
@@ -21,6 +21,13 @@ async function main() {
               id: ac.id,
               date: ac.date,
               name: ac.name,
+              intervals: {
+                create: ac.intervals?.map((int: Interval) => ({
+                  id: int.id,
+                  duration: int.duration,
+                  intensity: int.intensity,
+                })),
+              },
             })),
           },
         },
