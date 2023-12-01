@@ -25,20 +25,23 @@ export default async function Page() {
   const userData = await fetchUserData()
   console.log(userData)
   return (
-    <div>
-      <div className="flex flex-col items-center">
-        <CreateUser />
+    <div className="flex flex-col items-center ">
+      <CreateUser />
+      <div className="max-w-xl mx-auto my-8 p-4 bg-white rounded shadow hover:bg-indigo-100">
+      <h1 className="text-2xl font-bold mb-4 ">User Data</h1>
+  <ul className="px-4">
+    {userData.data.map((user: User, index: number) => (
+      <li
+        key={index}
+        className="border-2 border-solid border-gray-300 rounded p-4 mb-4"
+      >
+        <h2 className="text-lg font-bold mb-2 text-blue-900">User ID: {user.id}</h2>
+        <p className="text-lg font-bold mb-2">Gender: {user.gender}</p>
+        <p className="text-lg font-bold mb-2">Sport: {user.sport}</p>
+      </li>
+    ))}
+  </ul>
       </div>
-      <h1>User Data</h1>
-      <ul className="px-6">
-        {userData.data.map((user: User, index: number) => (
-          <li key={index} className="border-2 border-solid border-red-500">
-            <h2>User ID: {user.id}</h2>
-            <p>Gender: {user.gender}</p>
-            <p>Sport: {user.sport}</p>
-          </li>
-        ))}
-      </ul>
 
       {/* <ul className="px-6">
         {userData.data.map((user, index) => (

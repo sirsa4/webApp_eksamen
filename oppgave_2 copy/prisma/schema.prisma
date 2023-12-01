@@ -10,7 +10,7 @@ datasource db {
 // TODO: Delete
 model User {
   id     String @id @unique @default(uuid())
-  userId String
+  userId String 
   gender String
   sport  String
   meta   Meta?

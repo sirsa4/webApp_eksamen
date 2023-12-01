@@ -52,7 +52,7 @@ const CreateUser = () => {
 
   return (
     <div className="w-full max-w-xs">
-      <h1>Create New User</h1>
+      <h1 className="text-2xl font-bold mb-4">Create New User</h1>
       <form
         onSubmit={handleSubmit}
         className="mb-4 rounded bg-white px-8 pb-8 pt-6 shadow-md"
