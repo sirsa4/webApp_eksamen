@@ -7,7 +7,11 @@ export async function GET() {
   try {
     const res = await prisma.user.findMany({
       include: {
-        activities: true,
+        activities: {
+          include: {
+            intervals: true,
+          },
+        },
       },
     })
     return NextResponse.json({ data: res, status: 200 })
