@@ -4,8 +4,14 @@ import { useState } from "react"
 import type { FormEvent, MouseEvent } from "react"
 import { useRouter } from "next/navigation"
 
-import { calculate } from "@/lib/utils"
-import { AnswerType, TaskType } from "@/types"
+import { answerList, calculate } from "@/lib/utils"
+import { AnswerType, TaskType, TypeAnswer } from "@/types"
+
+/*
+  correct: true,
+    tries: 1,
+    operation: 'subtraction'
+*/
 
 export default function Answer({
   current,
@@ -16,6 +22,8 @@ export default function Answer({
   score,
   attempts,
   setAttempts,
+  input,
+  setInput,
 }: {
   current: TaskType
   data: string[]
@@ -25,49 +33,66 @@ export default function Answer({
   score: number
   attempts: number
   setAttempts: any
+  input: number
+  setInput: any
 }) {
   // const [answer, setAnswer] = useState(0)
   const route = useRouter()
   const [answers, setAnswers] = useState<AnswerType[]>([])
+  const [at, setAt] = useState(0)
+  const [an, setAn] = useState([])
 
   //function which sends answers attached to tasks to the database
-  const send = async (event: MouseEvent<HTMLButtonElement>) => {
+  const send = async (event: FormEvent<HTMLButtonElement>) => {
     event.preventDefault()
-    //console.log(answer)
-
-    //add answers to all tasks
-    // store answers array to an array of tasks for updating
-    //This returns objects that can be send as patch request with fetch api
-    //id of each task is included to update correct task
-
-    const tasksToUpdate = answers.map((answer) => {
-      return {
-        id: answer.id,
-        answers: [
-          {
-            attempts: answer.answers[0].attempts + 1,
-          },
-        ],
-      }
-    })
-    console.log(tasksToUpdate)
-    //patch request which sends the answers array to api route: /api/restapi
-    //route.ts in that path will handle this request
+    // console.log(answerList)
     try {
-      const updatedTasks = await fetch(`/api/restapi`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(tasksToUpdate),
-      })
-      route.push("/result")
+      const requests = []
+      //GPT
+      for (const [key, value] of answerList.entries()) {
+        const response = await fetch(`/api/restapi/yolo`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ key, attempts: value.attempts }), // Assuming you want to send both key and attempts
+        })
+
+        const data = await response.json()
+        console.log("Response from server:", data)
+
+        requests.push(data)
+      }
+
+      // Do something with the results if needed
+      // console.log("All requests completed:", requests)
+
+      // Redirect to /result
+      // route.push("/result");
     } catch (error) {
       console.error(error)
     }
+
+    /*
+    const items = answerList.forEach((val, key) => {
+      console.log(`Key: ${key} - Value: ${val.attempts}`)
+    })
+    try {
+      const updatedTasks = await fetch(`/api/restapi/yolo`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(answerList),
+      })
+      // route.push("/result")
+    } catch (error) {
+      console.error(error)
+    }
+    */
   }
 
-  const update = (event: FormEvent<HTMLInputElement>) => {
+  const update = (event: FormEvent<HTMLFormElement>) => {
     setAnswer(parseInt(event.currentTarget.value))
 
     //check if answer is not correct - meaning answer from user is not same as return value of calcuate()
@@ -91,8 +116,8 @@ export default function Answer({
           { id: current.id, answers: [{ attempts: attempts }] },
         ])
       }
-      console.log("Attemps: " + attempts)
-      console.log(answers)
+      // console.log("Attemps: " + attempts)
+      // console.log(answers)
       if (attempts === 0) {
         return <div>You lost</div>
       }
@@ -103,20 +128,62 @@ export default function Answer({
     setToggleAnswer((prev) => !prev)
   }
 
+  const validate = () => {
+    const calc = calculate(current, data)
+
+    setAttempts((prev: number) => prev + 1)
+
+    if (calc === parseInt(input)) {
+      // console.log(`Answer is: ${calc}`)
+    }
+    // console.log(attempts)
+  }
+  if (attempts >= 3) {
+    setAttempts(3)
+    // answerList.set(current.id, { attempts: attempts })
+    //console.log(current.text)
+    // console.log(current.type)
+  }
+  //answerList.size > 0 ? answerList.forEach((i) => console.log(i)) : null
+  // answerList.set(current.id, { attempts: attempts })
+  //console.log(answerList)
+
   return (
     <div>
-      <label htmlFor="answer">Svar</label>
-      <input
-        name="answer"
-        type="text"
-        placeholder="Sett svar her"
-        onInput={update}
-      />
-      {calculate(current, data) === answer ? "Bra jobbet!" : null}
-      {lastTask ? <button onClick={send}>Send</button> : null}
-      <p>working</p>
-      {attempts === 3 ? <button onClick={checkAnswer}>Se svar</button> : null}
-      {toggleAnswer ? <p>{calculate(current, data)}</p> : null}
+      <section>
+        <p>Attempts: {attempts} / 3</p>
+      </section>
+      <form onSubmit={send}>
+        <div>
+          <label htmlFor="answer">Svar</label>
+          <input
+            name="answer"
+            type="text"
+            placeholder="Sett svar her"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+          />
+        </div>
+        <section>
+          {calculate(current, data) === answer ? "Bra jobbet!" : null}
+          {lastTask ? <button type="submit">Send</button> : null}
+          <p>working</p>
+          <div>
+            {attempts < 3 ? (
+              <button type="button" onClick={validate}>
+                Check answer
+              </button>
+            ) : null}
+          </div>
+        </section>
+      </form>
+      <div>
+        {attempts === 3 ? <button onClick={checkAnswer}>Se svar</button> : null}
+        {toggleAnswer ? <p>{calculate(current, data)}</p> : null}
+      </div>
+      <button type="button" onClick={send}>
+        SEND
+      </button>
     </div>
   )
 }

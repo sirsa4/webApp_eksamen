@@ -13,20 +13,6 @@ import { useProgress } from "@/hooks/useProgress"
 import { type TaskType } from "@/types"
 
 export default function Tasks({ allTasks }: { allTasks: TaskType[] }) {
-  /*
-  const {
-    current,
-    tasks,
-    data,
-    next,
-    prev,
-    lastTask,
-    score,
-    answer,
-    setAnswer,
-    count,
-  } = useProgress(allTasks)
-  */
   const {
     tasks,
     current,
@@ -37,8 +23,11 @@ export default function Tasks({ allTasks }: { allTasks: TaskType[] }) {
     score,
     lastTask,
     setAnswer,
+    attempts,
+    setAttempts,
   } = useProgress(allTasks)
-  const [attempts, setAttempts] = useState(1)
+  const [input, setInput] = useState()
+
   // console.log("score: " + score)
   //console.log("count: " + (tasks.length - 1))
   console.log("===================Tasks component================== ")
@@ -61,6 +50,8 @@ export default function Tasks({ allTasks }: { allTasks: TaskType[] }) {
         lastTask={lastTask}
         setAnswer={setAnswer}
         setAttempts={setAttempts}
+        input={input}
+        setInput={setInput}
       />
       <Progress
         current={current}
