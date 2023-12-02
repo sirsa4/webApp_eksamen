@@ -32,6 +32,7 @@ model Activity {
   date      DateTime?
   name      String?
   tags      String?
+  sport     String?
   User      User?      @relation(fields: [userId], references: [id])
   userId    String?
   intervals Interval[]
