@@ -16,6 +16,9 @@ export const getBaseUrl = () => {
   return `http://localhost:${process.env.PORT ?? 3000}`
 }
 
+//list which stores the number of answers
+export const answerList = new Map<TaskType["id"], { attempts: number }>()
+
 //Variable which stores different type of math operations
 export const mathTypes = ["add", "divide", "multiply", "subtract"]
 

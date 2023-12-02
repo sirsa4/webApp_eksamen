@@ -19,3 +19,7 @@ export type AnswerType = {
     attempts: number
   }[]
 }
+export type TypeAnswer = {
+  key: string
+  attempts: number
+}

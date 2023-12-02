@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react"
 
-import { calculate } from "@/lib/utils"
+import { answerList, calculate } from "@/lib/utils"
 import { type TaskType } from "@/types"
 
 export function useProgress(allTasks: TaskType[]) {
   const [tasks, setTasks] = useState<TaskType[]>(allTasks)
+  //list which stores number attempts on tasks
 
   const [count, setCount] = useState(0)
   const current = tasks[count] as TaskType
@@ -12,6 +13,7 @@ export function useProgress(allTasks: TaskType[]) {
   const [answer, setAnswer] = useState(0)
   const [score, setScore] = useState(0)
   const data = current?.data.split("|")
+  const [attempts, setAttempts] = useState(0)
 
   // console.log(data)
   //console.log("index: " + tasks.indexOf(tasks[count]))
@@ -51,6 +53,10 @@ export function useProgress(allTasks: TaskType[]) {
     if (calculate(current, data) === answer) {
       setScore((prev) => prev + 1)
     }
+    console.log("=============useProgress================")
+    answerList.set(current.id, { attempts })
+    console.log(answerList)
+    setAttempts(0)
   }
   const prev = () => {
     console.log("prev: useProgress")
@@ -59,6 +65,7 @@ export function useProgress(allTasks: TaskType[]) {
     } else {
       setCount(0)
     }
+    setAttempts(0)
   }
 
   return {
@@ -72,6 +79,8 @@ export function useProgress(allTasks: TaskType[]) {
     answer,
     setAnswer,
     tasks,
+    attempts,
+    setAttempts,
   }
 }
 
