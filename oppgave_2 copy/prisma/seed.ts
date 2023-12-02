@@ -21,6 +21,9 @@ async function main() {
               id: ac.id,
               date: ac.date,
               name: ac.name,
+              //issue with tags
+              tags: ac.sport?.map((ta) => ta).join(","),
+              sport: ac.sport,
               intervals: {
                 create: ac.intervals?.map((int: Interval) => ({
                   id: int.id,

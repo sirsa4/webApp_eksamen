@@ -55,6 +55,7 @@ export async function PATCH(
             date: body.date,
             name: body.name,
             tags: body.tags,
+            sport: body.sport,
             intervals: {
               create: body.intervals?.map((inter) => ({
                 duration: inter.duration,

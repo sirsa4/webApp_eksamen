@@ -35,6 +35,22 @@ const Userpage = async ({ params }: { params: { id: string } }) => {
               <div key={ac.id}>
                 <h4>Date: {ac.date}</h4>
                 <p>ID: {ac.id}</p>
+                <p>Sport: {ac.sport}</p>
+                <div>
+                  <span>Tags: </span>
+                  {Array.isArray(ac.tags)
+                    ? ac.tags.map((ta) => {
+                        return (
+                          <span key={`${ta}+${Math.random() + 1}`}>
+                            dsd{ta}
+                          </span>
+                        )
+                      })
+                    : "no tags"}
+                  {ac.tags?.split(",").map((tag: string) => {
+                    return <span key={`${tag}+${Math.random}`}>{tag},</span>
+                  })}
+                </div>
                 {ac.intervals?.map((int) => {
                   return (
                     <div key={int.id}>
