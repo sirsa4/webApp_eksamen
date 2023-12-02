@@ -1,14 +1,9 @@
 import type { NextRequest } from "next/server"
 import { NextResponse } from "next/server"
 
-<<<<<<< HEAD
-import { type TaskType } from "@/types"
-import { prisma } from "@/lib/prisma"
-=======
 import { prisma } from "@/lib/prisma"
 import { generateTasks } from "@/lib/utils"
 import { type TaskType } from "@/types"
->>>>>>> main
 
 const tasks: TaskType[] = [
   {
@@ -39,10 +34,6 @@ export async function GET(request: NextRequest) {
   const count = -1
   if (!count)
     return NextResponse.json({ success: false, error: "Invalid count" })
-<<<<<<< HEAD
-    const allTasks = await prisma.task.findMany()
-  return NextResponse.json({ success: true, data: tasks }, { status: 200 })
-=======
   try {
     const allTasks = await prisma.task.findMany({ include: { answers: true } })
     return NextResponse.json({ success: true, data: allTasks }, { status: 200 })
@@ -51,18 +42,18 @@ export async function GET(request: NextRequest) {
   }
 }
 
-//PATCH route to update all tasks
+// PATCH route to update all tasks
 export async function PATCH(request: NextRequest) {
   try {
-    //get data from body that is sent from the front end
+    // get data from body that is sent from the front end
     const data = (await request.json()) as TaskType[]
 
-    // loop over tasks in the request and handle each each one
+    // loop over tasks in the request and handle each one
     for (const taskData of data) {
       const taskId = taskData.id
 
-      // first check is defined with data in each task
-      //if here is no id sent with body, then it is not possible to attach answer to specific task
+      // first check if defined with data in each task
+      // if there is no id sent with body, then it is not possible to attach an answer to a specific task
       if (!taskId) {
         return NextResponse.json(
           { success: false, error: "Task ID is missing" },
@@ -70,21 +61,7 @@ export async function PATCH(request: NextRequest) {
         )
       }
 
-      // check in database if task with same id as the one sent from frontend exists in database
-      const existingTask = await prisma.task.findUnique({
-        where: { id: taskId },
-      })
-      //if task similar id in database is not found, then we return 404
-      if (!existingTask) {
-        return NextResponse.json(
-          { success: false, error: `Task with ID ${taskId} not found` },
-          { status: 404 },
-        )
-      }
-
-      // Create a new Answer if task with id similar to data being sent is found in database
-      //answer is connected to tasks with taskId
-      //used GPT to make this function work after errors
+      // Create a new Answer for each task
       const createdAnswer = await prisma.answer.create({
         data: {
           attempts: taskData?.answers[0].attempts,
@@ -92,16 +69,13 @@ export async function PATCH(request: NextRequest) {
         },
       })
 
-      // Update the Task by connecting the new Answer
-      // also used GPT to make this function work
-      //we had to add attempts key in answers:{} to make it work in end
+      // Connect the created answer to the task
       const updatedTask = await prisma.task.update({
         where: { id: taskId },
         data: {
           answers: {
             connect: {
               id: createdAnswer.id,
-              attempts: createdAnswer.attempts,
             },
           },
         },
@@ -122,5 +96,4 @@ export async function PATCH(request: NextRequest) {
       { status: 500 },
     )
   }
->>>>>>> main
 }

@@ -3,19 +3,16 @@ import { useEffect, useState } from "react"
 import { calculate } from "@/lib/utils"
 import { type TaskType } from "@/types"
 
-export function useProgress(allTasks: TaskType[]) {
-  const [tasks, setTasks] = useState<TaskType[]>(allTasks)
-
+export function useProgress() {
+  const [tasks, setTasks] = useState<TaskType[]>([])
   const [count, setCount] = useState(0)
   const current = tasks[count] as TaskType
   const [lastTask, setLastTask] = useState(false)
   const [answer, setAnswer] = useState(0)
   const [score, setScore] = useState(0)
   const data = current?.data.split("|")
-
   // console.log(data)
-  //console.log("index: " + tasks.indexOf(tasks[count]))
-  /*
+  console.log("index: " + tasks.indexOf(tasks[count]))
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -39,7 +36,6 @@ export function useProgress(allTasks: TaskType[]) {
 
     fetchData()
   }, [count])
-  */
 
   const next = () => {
     console.log("next: useProgress")
@@ -57,11 +53,12 @@ export function useProgress(allTasks: TaskType[]) {
     if (count > 0) {
       setCount((prevCount) => prevCount - 1)
     } else {
-      setCount(0)
+      setCount(tasks.length - 1)
     }
   }
 
   return {
+    tasks,
     count,
     current,
     lastTask,
@@ -71,18 +68,5 @@ export function useProgress(allTasks: TaskType[]) {
     score,
     answer,
     setAnswer,
-    tasks,
   }
 }
-
-/*
- count,
-    current,
-    lastTask,
-    data,
-    next,
-    prev,
-    score,
-    answer,
-    setAnswer,
-*/

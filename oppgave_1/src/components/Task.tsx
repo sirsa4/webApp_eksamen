@@ -1,19 +1,17 @@
-<<<<<<< HEAD
-import React from 'react'
+import React from "react"
 
-const Task = () => {
+import { TaskType } from "@/types"
+
+const Task = ({ current }: { current: TaskType }) => {
   return (
-    <div>Task</div>
+    <>
+      <article key={current.id}>
+        <p>{current.text}</p>
+        <p>{current.type}</p>
+        <p>{current.data}</p>
+      </article>
+    </>
   )
 }
 
 export default Task
-=======
-import React from "react"
-
-const Task = () => {
-  return <div>Task</div>
-}
-
-export default Task
->>>>>>> main

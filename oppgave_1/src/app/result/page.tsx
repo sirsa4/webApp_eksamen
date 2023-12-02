@@ -8,17 +8,40 @@ const ResultPage = async () => {
   console.log(result)
   return (
     <div className="flex flex-col items-center">
-      {result?.data.map((task: TaskType) => {
-        return (
-          <article key={task.id}>
-            <p>{task.id}</p>
-            <p>{task.type}</p>
-            {task.answers.map((ans: AnswerType) => {
-              return <p key={ans.id}>{Math.max(ans.attempts)}</p>
-            })}
-          </article>
-        )
-      })}
+      <section>
+        {result?.data.map((task: TaskType) => {
+          return (
+            <article key={task.id}>
+              <p>{task.id}</p>
+              <p>{task.type}</p>
+              {task.answers.map((ans: AnswerType) => {
+                return ans.answers.map((atm) => {
+                  return (
+                    <article key={ans.id}>
+                      <p>{atm.attempts}</p>
+                    </article>
+                  )
+                })
+              })}
+            </article>
+          )
+        })}
+        <p>This is not working well</p>
+        {result?.data
+          .map((tas) => tas)
+          .map((ans) => ans.answers)
+          .map((at) => {
+            console.log("AT: ")
+            console.log(at)
+            return (
+              <div key={at.id}>
+                {at.attempts}
+                {at.id}
+              </div>
+            )
+          })}
+        <p>done</p>
+      </section>
     </div>
   )
 }

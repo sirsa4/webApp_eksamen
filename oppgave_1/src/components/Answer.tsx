@@ -13,16 +13,21 @@ export default function Answer({
   lastTask,
   answer,
   setAnswer,
+  score,
+  attempts,
+  setAttempts,
 }: {
   current: TaskType
   data: string[]
   lastTask: boolean
   answer: number
   setAnswer: any
+  score: number
+  attempts: number
+  setAttempts: any
 }) {
   // const [answer, setAnswer] = useState(0)
   const route = useRouter()
-  const [attempts, setAttempts] = useState(0)
   const [answers, setAnswers] = useState<AnswerType[]>([])
 
   //function which sends answers attached to tasks to the database
@@ -40,11 +45,12 @@ export default function Answer({
         id: answer.id,
         answers: [
           {
-            attempts: answer.answers[0].attempts,
+            attempts: answer.answers[0].attempts + 1,
           },
         ],
       }
     })
+    console.log(tasksToUpdate)
     //patch request which sends the answers array to api route: /api/restapi
     //route.ts in that path will handle this request
     try {
@@ -73,10 +79,10 @@ export default function Answer({
       const isDuplicate = answers.some(
         (a) => a.id === current.id && a.answers[0].attempts === attempts,
       )
-
+      setAttempts((prev) => prev + 1)
       //if to avoid avoid duplices
       if (!isDuplicate) {
-        setAttempts((prev) => prev + 1)
+        //  setAttempts((prev) => prev + 1)
         if (attempts >= 3) {
           setAttempts(0)
         }
@@ -92,6 +98,10 @@ export default function Answer({
       }
     }
   }
+  const [toggleAnswer, setToggleAnswer] = useState(false)
+  const checkAnswer = () => {
+    setToggleAnswer((prev) => !prev)
+  }
 
   return (
     <div>
@@ -104,6 +114,9 @@ export default function Answer({
       />
       {calculate(current, data) === answer ? "Bra jobbet!" : null}
       {lastTask ? <button onClick={send}>Send</button> : null}
+      <p>working</p>
+      {attempts === 3 ? <button onClick={checkAnswer}>Se svar</button> : null}
+      {toggleAnswer ? <p>{calculate(current, data)}</p> : null}
     </div>
   )
 }
