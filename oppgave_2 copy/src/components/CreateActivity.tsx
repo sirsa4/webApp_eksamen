@@ -7,7 +7,8 @@ const CreateSession = () => {
   const [name, setName] = useState("");
   const [tagsInput, setTagsInput] = useState([]);
   const [activity, setActivity] = useState("");
-  const [intervals, setIntervals] = useState("");
+  const [duration, setDuration] = useState("");
+  const [intensity, setIntensity] = useState("");
   const [sport, setSport] = useState("")
 
   const handleSubmit = (event) => {
@@ -16,7 +17,7 @@ const CreateSession = () => {
 
     const tags = tagsInput.split(",").map(tag => tag.trim());
     // Her kan du utføre handlinger som å sende data til en API-endepunkt
-    const newSession = { date, name, tags, activity, intervals };
+    const newSession = { date, name, tags, activity, duration, intensity };
     console.log("New Session:", newSession);
 
     // Reset state etter innsending hvis nødvendig
@@ -24,7 +25,8 @@ const CreateSession = () => {
     setName("");
     setTagsInput([]);
     setActivity("");
-    setIntervals(0);
+    setDuration("");
+    setIntensity("");
   };
 
   const sportsOptions = [
@@ -79,12 +81,22 @@ const CreateSession = () => {
               ))}
             </select>
           </label>
+     
         <div className="mb-4">
-          <label className="mb-2 block text-sm font-bold text-gray-700">Intervals:</label>
+          <label className="mb-2 block text-sm font-bold text-gray-700">Duration:</label>
           <input
             type="number"
-            value={intervals}
-            onChange={(e) => setIntervals(parseInt(e.target.value))}
+            value={duration}
+            onChange={(e) => setDuration(parseInt(e.target.value))}
+            required
+          />
+        </div>
+        <div className="mb-4">
+          <label className="mb-2 block text-sm font-bold text-gray-700">Intensity:</label>
+          <input
+            type="number"
+            value={intensity}
+            onChange={(e) => setIntensity(parseInt(e.target.value))}
             required
           />
         </div>
