@@ -57,10 +57,10 @@ export const calculate = (current: TaskType, data: string[]) => {
       //console.log(data)
       return parseInt(data[0]) * parseInt(data[1])
     case "divide":
-      if (data[0] == "0" || data[1] == "0") {
-        return 1
+      if (parseInt(data[1]) === 0) {
+        return parseInt(data[0]) / parseInt(data[1] + 1)
       }
-      return parseInt(data[0]) / parseInt(data[1])
+      return (parseInt(data[0]) / parseInt(data[1])).toFixed(2)
     default:
       return "nothing"
   }

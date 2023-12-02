@@ -3,6 +3,7 @@ export type TaskType = {
   text: string
   type: "add" | "divide" | "multiply" | "subtract"
   data: "num1 | num2"
+  answers?: AnswerType[]
 }
 
 export type Type = "add" | "subtract" | "multiply" | "divide"
