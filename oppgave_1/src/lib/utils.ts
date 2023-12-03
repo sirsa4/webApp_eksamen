@@ -37,12 +37,24 @@ export async function generateTasks(length: number) {
   await prisma.task.deleteMany()
 
   Array.from({ length: length }).map(async (_, i) => {
+    let type = getRandomType(mathTypes)
+    /*
+    let num1 = faker.string.numeric();
+    let num2 = faker.string.numeric();
+    */
+    let nums = `${faker.string.numeric()}|${faker.string.numeric()}`
+    let dat = nums.split("|")
+    let NumAnswer = calculate2(type, dat)
+    let answer = `${NumAnswer}`
+    //console.log(result)
+    // console.log(dat)
     await prisma.task.create({
       data: {
         text: faker.company.name(),
-        type: getRandomType(mathTypes),
+        type: type,
         //random made from strings: https://fakerjs.dev/api/random.html
-        data: `${faker.string.numeric()} | ${faker.string.numeric()}`,
+        data: nums,
+        answer: answer,
       },
     })
   })
@@ -51,6 +63,25 @@ export async function generateTasks(length: number) {
 //function to calculate 2 numbers
 export const calculate = (current: TaskType, data: string[]) => {
   switch (current?.type) {
+    case "add":
+      return parseInt(data[0]) + parseInt(data[1])
+    case "subtract":
+      return parseInt(data[0]) - parseInt(data[1])
+    case "multiply":
+      // console.log(`${current.data[0]} | ${current.data[1]}`)
+      //console.log(data)
+      return parseInt(data[0]) * parseInt(data[1])
+    case "divide":
+      if (parseInt(data[1]) === 0) {
+        return parseInt(data[0]) / parseInt(data[1] + 1)
+      }
+      return (parseInt(data[0]) / parseInt(data[1])).toFixed(2)
+    default:
+      return "nothing"
+  }
+}
+export const calculate2 = (type: string, data: string[]) => {
+  switch (type) {
     case "add":
       return parseInt(data[0]) + parseInt(data[1])
     case "subtract":

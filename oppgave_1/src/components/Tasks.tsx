@@ -16,6 +16,8 @@ export default function Tasks({ allTasks }: { allTasks: TaskType[] }) {
   const {
     tasks,
     current,
+    input,
+    setInput,
     data,
     next,
     prev,
@@ -25,8 +27,14 @@ export default function Tasks({ allTasks }: { allTasks: TaskType[] }) {
     setAnswer,
     attempts,
     setAttempts,
+    toggleAnswer,
+    checkAnswer,
+    isCorrect,
+    setIsCorrect,
+    operation,
+    setOperation,
+    validate,
   } = useProgress(allTasks)
-  const [input, setInput] = useState()
 
   // console.log("score: " + score)
   //console.log("count: " + (tasks.length - 1))
@@ -52,6 +60,13 @@ export default function Tasks({ allTasks }: { allTasks: TaskType[] }) {
         setAttempts={setAttempts}
         input={input}
         setInput={setInput}
+        toggleAnswer={toggleAnswer}
+        checkAnswer={checkAnswer}
+        operation={operation}
+        setOperation={setOperation}
+        isCorrect={isCorrect}
+        setIsCorrect={setIsCorrect}
+        validate={validate}
       />
       <Progress
         current={current}
