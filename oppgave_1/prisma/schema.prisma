@@ -12,12 +12,15 @@ model Task {
   text    String
   type    String
   data    String
+  answer  String?
   answers Answer[]
 }
 
 model Answer {
-  id       String  @id @default(uuid())
-  attempts Int
-  task     Task?   @relation(fields: [taskId], references: [id])
-  taskId   String?
+  id        String   @id @default(uuid())
+  attempts  Int
+  operation String?
+  correct   Boolean?
+  task      Task?    @relation(fields: [taskId], references: [id])
+  taskId    String?
 }
