@@ -11,6 +11,7 @@ const CreateCompetition = () => {
   const [priority, setPriority] = useState("");
   const [comment, setComment] = useState("");
 
+  const [competitionByYear, setCompetitionByYear] = useState({});
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -20,6 +21,16 @@ const CreateCompetition = () => {
     // // Her kan du utføre handlinger som å sende data til en API-endepunkt
     const newCompetition = { name, date, location, goal, competition, priority, comment};
     console.log("New Session:", newCompetition);
+
+    const year = new Date(date).getFullYear();
+    if(competitionByYear[year] === undefined) {
+      setCompetitionByYear({... competitionByYear, [year]: 1});
+    }else if (competitionByYear[year] < 3){
+      setCompetitionByYear({... competitionByYear, [year]: competitionByYear[year] + 1});
+    }else {
+      alert("Maximum sessions are reached for this year!")
+      return;
+    }
 
     // Reset state etter innsending hvis nødvendig
     setName("");
