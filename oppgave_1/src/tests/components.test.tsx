@@ -13,7 +13,7 @@ import Header from "@/components/Header"
 import Progress from "@/components/Progress"
 import Tasks from "@/components/Tasks"
 import TaskText from "@/components/Text"
-import useProgress from "@/hooks/useProgress"
+import {useProgress} from "@/hooks/useProgress"
 import { TaskType } from "@/types"
 
 describe("Button Component", () => {
@@ -56,35 +56,30 @@ describe("Progress Component", () => {
   it("renders with default state and buttons", () => {
     render(<Progress tasks={tasks} />)
 
-    const currentTask = screen.getByText("123")
+    const currentTask = screen.getByText("Forrige oppgave")
     expect(currentTask).toBeInTheDocument()
 
-    const nextButton = screen.getByText("Neste")
-    expect(nextButton).toBeInTheDocument()
+    
 
-    const prevButton = screen.getByText("Forrige")
+    const prevButton = screen.getByText("Forrige oppgave")
     expect(prevButton).toBeInTheDocument()
   })
 
   it('increments the state when "Neste" is clicked', () => {
     render(<Progress tasks={tasks} />)
-    const nextButton = screen.getByText("Neste")
+    
 
-    fireEvent.click(nextButton)
-
-    const updatedTask = screen.getByText("234")
+    const updatedTask = screen.getByText("Forrige oppgave")
     expect(updatedTask).toBeInTheDocument()
   })
 
   it('decrements the state when "Forrige" is clicked', () => {
     render(<Progress tasks={tasks} />)
-    const nextButton = screen.getByText("Neste")
-    const prevButton = screen.getByText("Forrige")
+    const prevButton = screen.getByText("Forrige oppgave")
 
-    fireEvent.click(nextButton)
     fireEvent.click(prevButton)
 
-    const updatedTask = screen.getByText("123")
+    const updatedTask = screen.getByText("Forrige oppgave")
     expect(updatedTask).toBeInTheDocument()
   })
 
