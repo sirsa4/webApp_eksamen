@@ -107,6 +107,7 @@ export function useProgress(allTasks: TaskType[]) {
 
   return {
     count,
+    counter,
     current,
     input,
     setInput,
