@@ -98,37 +98,39 @@ export default function Answer({
 
   return (
     <div>
-      <section>
-        <p>Attempts: {attempts} / 3</p>
+      <section className="flex md:flex-col items-center">
+        <p className="text-lg font-bold mb-1">Attempts: {attempts} / 3</p>
       </section>
       <form onSubmit={send}>
-        <div>
+        <div className="flex md:flex-col items-center">
           <label htmlFor="answer">Svar</label>
           <input
             name="answer"
             type="text"
             placeholder="Sett svar her"
             value={input}
+            className="  rounded-lg flex md:flex-col items-center mb-4"
             onChange={(e) => setInput(e.target.value)}
           />
         </div>
-        <section>
+        <section className="flex md:flex-col items-center">
           {isCorrect ? "Bra jobbet!" : null}
           <div>
             {attempts < 3 ? (
-              <button type="button" onClick={validate}>
+              <button className=" mb-4 focus:shadow-outline rounded-lg bg-pink-300 px-4 py-2 font-bold text-white hover:bg-pink-600" type="button" onClick={validate}>
                 Validate answer
               </button>
             ) : null}
           </div>
         </section>
       </form>
-      <div>
-        {attempts === 3 ? <button onClick={checkAnswer}>Se svar</button> : null}
+      <div >
+        {attempts === 3 ? <button className=" mb-4 focus:shadow-outline rounded-lg bg-yellow-200 px-4 py-2" onClick={checkAnswer}>Se svar</button> : null}
         {toggleAnswer ? <p>{calculate(current, data)}</p> : null}
       </div>
       {lastTask ? (
-        <button type="submit" onClick={send}>
+        <button className="  mb-4 focus:shadow-outline rounded-lg bg-green-400 px-4 py-2 hover:bg-green-600 "
+         type="submit" onClick={send}>
           Send
         </button>
       ) : null}

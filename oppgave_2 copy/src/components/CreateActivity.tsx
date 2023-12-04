@@ -42,7 +42,7 @@ const CreateSession = () => {
 
   return (
     <div className="w-full max-w-xs">
-      <h1>Create New Session</h1>
+      <h1 className="text-2xl font-bold mb-4 text-center ">Create New Session</h1>
       <form onSubmit={handleSubmit} className="mb-4 rounded bg-white px-8 pb-8 pt-6 shadow-md">
         <div className="mb-4">
           <label className="mb-2 block text-sm font-bold text-gray-700">Date:</label>

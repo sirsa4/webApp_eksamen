@@ -13,9 +13,9 @@ export default async function Home() {
   console.log()
 
   return (
-    <main className="flex flex-col items-center">
-      {JSON.stringify(result.data)}
-      <h3>Tasks own page</h3>
+    <main className="flex flex-col items-center ">
+      
+      <h3 className="text-lg font-bold mb-4">Tasks own page</h3>
       <Tasks allTasks={result.data} />
     </main>
   )
