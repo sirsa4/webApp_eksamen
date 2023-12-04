@@ -12,10 +12,13 @@ export async function GET() {
             intervals: true,
           },
         },
+        competitions: true,
       },
     })
     return NextResponse.json({ data: res, status: 200 })
-  } catch (error) {}
+  } catch (error) {
+    console.error(error)
+  }
 }
 
 export async function POST(request: NextRequest) {
