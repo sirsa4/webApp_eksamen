@@ -17,6 +17,7 @@ export function useProgress(allTasks: TaskType[]) {
   const [operation, setOperation] = useState("")
   const [toggleAnswer, setToggleAnswer] = useState(false)
   const [isCorrect, setIsCorrect] = useState(false)
+  const [counter, setCounter] = useState(1)
 
   //function to go next task
   const next = () => {
@@ -43,6 +44,14 @@ export function useProgress(allTasks: TaskType[]) {
     setToggleAnswer(false)
     //remove "bra jobbet" from ui when going to next task after user solved current task correctly
     setIsCorrect(false)
+    setCounter((prev) => prev + 1)
+    console.log("current count: " + counter)
+    console.log("tasks length: " + tasks.length)
+    if (counter === tasks.length - 1 || counter > tasks.length - 1) {
+      setLastTask(true)
+    } else {
+      // setLastTask(false)
+    }
   }
   //function to go previous task
   const prev = () => {
@@ -72,11 +81,12 @@ export function useProgress(allTasks: TaskType[]) {
       setAttempts((prev: number) => prev + 1)
       console.log("Attempts: " + attempts)
 
-      if (calc === parseInt(input)) {
+      if (calc === parseFloat(input)) {
         // console.log(`Answer is: ${calc}`)
         setIsCorrect(true)
         //  setCorrect(true)
         correct = true
+        console.log(`calc: ${calc} | input: ${parseFloat(input)}`)
       } else {
         setIsCorrect(false)
         //  setCorrect(false)

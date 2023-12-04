@@ -28,3 +28,10 @@ export type TypeAnswer = {
   operation?: string
   correct?: boolean
 }
+export type ResultAnswer = {
+  id: string
+  attempts: number
+  operation: string
+  correct: boolean
+  taskId: string
+}

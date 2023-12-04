@@ -81,9 +81,8 @@ export default function Answer({
       const data = await response.json()
       console.log("Response from server:", data)
 
-      // Do something with the results if needed
-      // Redirect to /result
-      // route.push("/result");
+      // Redirect to /result to show final score
+      route.push("/result")
     } catch (error) {
       console.error(error)
     }
@@ -95,7 +94,7 @@ export default function Answer({
     //console.log(current.text)
     // console.log(current.type)
   }
-  // console.log(attempts)
+  console.log("isCorrect: " + isCorrect)
 
   return (
     <div>
@@ -115,8 +114,6 @@ export default function Answer({
         </div>
         <section>
           {isCorrect ? "Bra jobbet!" : null}
-          {lastTask ? <button type="submit">Send</button> : null}
-          <p>working</p>
           <div>
             {attempts < 3 ? (
               <button type="button" onClick={validate}>
@@ -130,9 +127,11 @@ export default function Answer({
         {attempts === 3 ? <button onClick={checkAnswer}>Se svar</button> : null}
         {toggleAnswer ? <p>{calculate(current, data)}</p> : null}
       </div>
-      <button type="button" onClick={send}>
-        SEND
-      </button>
+      {lastTask ? (
+        <button type="submit" onClick={send}>
+          Send
+        </button>
+      ) : null}
     </div>
   )
 }

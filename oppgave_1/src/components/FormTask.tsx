@@ -1,3 +1,5 @@
+"use client"
+
 import { ChangeEvent, useState } from "react"
 import { useRouter } from "next/navigation"
 
@@ -18,6 +20,7 @@ const FormTask = () => {
     } catch (error) {
       console.log(error)
     }
+    // route.refresh()
   }
   return (
     <>
