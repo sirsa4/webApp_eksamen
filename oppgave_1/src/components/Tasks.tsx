@@ -44,43 +44,46 @@ export default function Tasks({ allTasks }: { allTasks: TaskType[] }) {
 
   return (
     <>
-      <h1>Tasks component</h1>
-      <h2>
-        Tasks: {tasks.indexOf(current)}/{tasks.length - 1}
-      </h2>
-      <Task current={current} />
-      <Answer
-        current={current}
-        data={data}
-        score={score}
-        answer={answer}
-        attempts={attempts}
-        lastTask={lastTask}
-        setAnswer={setAnswer}
-        setAttempts={setAttempts}
-        input={input}
-        setInput={setInput}
-        toggleAnswer={toggleAnswer}
-        checkAnswer={checkAnswer}
-        operation={operation}
-        setOperation={setOperation}
-        isCorrect={isCorrect}
-        setIsCorrect={setIsCorrect}
-        validate={validate}
-      />
-      <Progress
-        current={current}
-        data={data}
-        next={next}
-        prev={prev}
-        answer={answer}
-        score={score}
-        lastTask={lastTask}
-        isCorrect={isCorrect}
-        attempts={attempts}
-      />
-    </>
-  )
+  <div className="grid rounded-lg place-items-center border-2 border-solid border-gray-200 m-4  p-4 shadow-md">
+
+<h1 className="text-lg font-bold mb-4 ">Tasks component</h1>
+<h2 className="text-lg font-bold mb-3 ">
+  Tasks: {tasks.indexOf(current)}/{tasks.length - 1}
+</h2>
+<Task current={current} />
+<Answer
+  current={current}
+  data={data}
+  score={score}
+  answer={answer}
+  attempts={attempts}
+  lastTask={lastTask}
+  setAnswer={setAnswer}
+  setAttempts={setAttempts}
+  input={input}
+  setInput={setInput}
+  toggleAnswer={toggleAnswer}
+  checkAnswer={checkAnswer}
+  operation={operation}
+  setOperation={setOperation}
+  isCorrect={isCorrect}
+  setIsCorrect={setIsCorrect}
+  validate={validate}
+/>
+<Progress
+  current={current}
+  data={data}
+  next={next}
+  prev={prev}
+  answer={answer}
+  score={score}
+  lastTask={lastTask}
+  isCorrect={isCorrect}
+  attempts={attempts}
+/>
+</div>
+</>
+)
 }
 
 /*
