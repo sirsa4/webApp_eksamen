@@ -12,7 +12,7 @@ const Userpage = async ({ params }: { params: { id: string } }) => {
   const result = json?.data as User
   console.log(result)
   console.log("id: " + params.id)
-
+//SRC : Kilde : https://nerdcave.com/tailwind-cheat-sheet
   return (
     <div className="grid space-y-8 text-center">
   <div className="inline-grid items-center my-8 border-2 border-solid border-gray-100 m-4 rounded p-4 shadow-md">
@@ -27,6 +27,7 @@ const Userpage = async ({ params }: { params: { id: string } }) => {
         <p className="mb-2 text-lg font-bold">Gender: {result?.gender}</p>
         <p className="mb-2 text-lg font-bold">Sport: {result?.sport}</p>
       </div>
+      
     </section>
 
     <div className="activity-box border-2 border-solid border-gray-100 m-4 rounded p-4  shadow-md "  > Activities
