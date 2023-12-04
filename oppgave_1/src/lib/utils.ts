@@ -35,6 +35,7 @@ export const getRandomType = <T>(items: T[]) => {
 //function to generate random tasks where it is possible to specify number of tasks being created
 export async function generateTasks(length: number) {
   await prisma.task.deleteMany()
+  await prisma.answer.deleteMany()
 
   Array.from({ length: length }).map(async (_, i) => {
     let type = getRandomType(mathTypes)
@@ -73,7 +74,7 @@ export const calculate = (current: TaskType, data: string[]) => {
       return parseInt(data[0]) * parseInt(data[1])
     case "divide":
       if (parseInt(data[1]) === 0) {
-        return parseInt(data[0]) / parseInt(data[1] + 1)
+        return "Cannot divide by zero"
       }
       return (parseInt(data[0]) / parseInt(data[1])).toFixed(2)
     default:

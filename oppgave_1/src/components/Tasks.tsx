@@ -76,6 +76,8 @@ export default function Tasks({ allTasks }: { allTasks: TaskType[] }) {
         answer={answer}
         score={score}
         lastTask={lastTask}
+        isCorrect={isCorrect}
+        attempts={attempts}
       />
     </>
   )
