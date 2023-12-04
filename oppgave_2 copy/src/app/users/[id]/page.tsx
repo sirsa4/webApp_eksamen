@@ -69,7 +69,7 @@ const Userpage = async ({ params }: { params: { id: string } }) => {
           })}
         </section>
       </div>
-      <Link href={"/users"}>Gå tilbake</Link>
+      <Link href={"/users"}>GÃ¥ tilbake</Link>
     </>
   )
 }
