@@ -2,8 +2,11 @@ import { prisma } from "@/lib/prisma"
 import { Activity, Data, Interval } from "@/types/User"
 
 async function main() {
+  //clear all tables in db when dev server is restarted
   await prisma.user.deleteMany()
   await prisma.meta.deleteMany()
+  await prisma.activity.deleteMany()
+  await prisma.competition.deleteMany()
 
   try {
     const res = await fetch("https://webapp-api.vercel.app/api/users")

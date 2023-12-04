@@ -9,12 +9,13 @@ datasource db {
 
 // TODO: Delete
 model User {
-  id         String     @id @unique @default(uuid())
-  userId     String     @unique
-  gender     String
-  sport      String
-  meta       Meta?
-  activities Activity[]
+  id           String        @id @unique @default(uuid())
+  userId       String        @unique
+  gender       String
+  sport        String
+  meta         Meta?
+  activities   Activity[]
+  competitions Competition[]
 }
 
 model Meta {
@@ -48,5 +49,16 @@ model Interval {
   activityId String?
 }
 
-//questions model
-//interval model
+//competition model. we are linking user and director
+model Competition {
+  id       String   @id @unique @default(uuid())
+  name     String   @unique
+  date     DateTime
+  location String
+  goal     String
+  sport    String
+  priority String
+  comment  String
+  User     User?    @relation(fields: [userId], references: [id])
+  userId   String?
+}

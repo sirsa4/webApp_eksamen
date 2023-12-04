@@ -28,7 +28,7 @@ const CreateSession = () => {
   
   
   return (
-    //SRC : Kilde : https://nerdcave.com/tailwind-cheat-sheet
+    
     <div className="grid justify-items-center ">
     <div className="w-full max-w-xs  ">
       <h1 className="text-2xl font-bold mb-4 text-center">Session target</h1>

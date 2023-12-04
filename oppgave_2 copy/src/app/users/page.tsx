@@ -26,7 +26,6 @@ export default async function Page() {
   const userData = await fetchUserData()
   console.log(userData)
   return (
-    //SRC : Kilde : https://nerdcave.com/tailwind-cheat-sheet
     <div>
       <div className="flex flex-col items-center">
         <CreateUser />
